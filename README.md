@@ -10,6 +10,16 @@ jj40 is awesome and I can't return to staggered keyboard.
 
 iOS on screen keyboard is staggered. It is not so bad. However I make some trivial on screen keyboard for fun.
 
+## Depends on
+
+- FlexLayout (with carthage)
+
+## See also
+
+`./keymap.c` is `qmk_firmware` source code for my __endgame__ layout.
+
+This project's keymap is based on this.
+
 ## Author
 
 * fgatherlet (fgatherlet@gmail.com)
