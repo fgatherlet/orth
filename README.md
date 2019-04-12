@@ -12,7 +12,7 @@ iOS on screen keyboard is staggered. It is not so bad. However I make some trivi
 
 ## Screen shots
 
-<div style='display:flex; flex-direction:row; align-items:center; justify-content:space-around;'>
+<div style='display:flex; flex-direction:column; align-items:center; justify-content:space-around;'>
   <img width='300px' src='https://github.com/fgatherlet/orth/raw/master/doc/img1.png'></img>
   <img height='300px' src='https://github.com/fgatherlet/orth/raw/master/doc/img0.png'></img>
 </div>
