@@ -1,21 +1,132 @@
-//
-//  AppDelegate.swift
-//  orth
-//
-//  Created by dn0174 on 2019/04/12.
-//  Copyright © 2019 fgatherlet. All rights reserved.
-//
-
 import UIKit
+import FlexLayout
+
+class ViewController: UIViewController {
+    func label(_ x: String)->UILabel {
+        let ret = UILabel()
+        ret.backgroundColor = UIColor.gray
+        ret.text = x
+        return ret
+    }
+    func tf(_ placeholder: String)->UITextField {
+        let ret = UITextField()
+        ret.text = ""
+        ret.placeholder = placeholder
+        return ret
+    }
+    func tv()->UITextView {
+        let ret = UITextView()
+        ret.text = ""
+        //ret.placeholder = placeholder
+        return ret
+    }
+    func btn(_ x: String)->UIButton {
+        let ret = UIButton()
+        ret.setTitle(x, for: .normal)
+        ret.backgroundColor = UIColor.black
+
+        ret.addTarget(self, action: #selector(tap(sender:)), for: .touchDown)
+        return ret
+    }
+    @objc func tap(sender: UIButton) {
+        let xlayer = prop("layer")
+        let xsplitp = prop("splitp")
+        self._tv.text = "layer:\(xlayer). splitp:\(xsplitp)"
+    }
+
+    func defaults()->UserDefaults {
+        return UserDefaults(suiteName: "dn.orth.conf")!
+    }
+    func prop(_ key: String)->Int {
+        return self.defaults().integer(forKey: key)
+    }
+    func prop(_ key: String, _ val: Int) {
+        self.defaults().set(val, forKey: key)
+    }
+
+    var labels: [UILabel] = []
+    var tfs: [UITextField] = []
+    var btns: [UIButton] = []
+    var _tv: UITextView = UITextView()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+
+        view.backgroundColor = UIColor.lightGray
+
+        self.view.flex
+          .justifyContent(.start)
+          .define { (flex) in
+              self.view.addSubview(self._tv)
+
+              let title = UILabel()
+              title.text = "orth simple keyboard"
+              self.view.addSubview(title)
+
+              let sub_title = UILabel()
+              sub_title.text = "try type."
+              self.view.addSubview(sub_title)
+
+
+              flex.addItem(title).width(100%).margin(4)
+
+              flex.addItem(sub_title).width(100%).margin(4).marginTop(12)
+
+              flex.addItem(self._tv).width(100%).height(100).margin(4)
+
+              // for i in 0...10 {
+              //     let xlabel = label("aa\(i)")
+              //     let xtf = tf("AA\(i)")
+              //     let xbtn = btn("a\(i)")
+              // 
+              //     labels.append(xlabel)
+              //     tfs.append(xtf)
+              //     btns.append(xbtn)
+              // 
+              //     view.addSubview(xlabel)
+              //     view.addSubview(xtf)
+              //     view.addSubview(xbtn)
+              // 
+              //     flex.addItem()
+              //       .justifyContent(.spaceBetween)
+              //       .direction(.row)
+              //       .width(100%)
+              //       .height(30)
+              //       .padding(4)
+              //       .define { (flex) in
+              //           flex.addItem(xlabel).width(30%)
+              //           flex.addItem(xtf).paddingLeft(8).width(40%)
+              //           flex.addItem(xbtn).width(30%)
+              //       }
+              // }
+              // let xtv = self._tv
+              // view.addSubview(xtv)
+              // flex.addItem(xtv)
+              //   .width(100%)
+              //   .height(100)
+              //   .margin(4)
+          }
+
+    }
+
+    override func viewDidLayoutSubviews() {
+        self.view.flex.padding(self.view.safeAreaInsets)
+        self.view.flex.layout()
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        //window?.rootViewController = ViewController()
+        window?.rootViewController = UINavigationController(rootViewController: ViewController())
+        window?.makeKeyAndVisible()
+
         return true
     }
 
@@ -43,4 +154,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-
